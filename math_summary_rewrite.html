@@ -40,9 +40,19 @@
             margin-bottom: 35px;
             margin-top: 45px;
             letter-spacing: 3px;
-            border-radius: 10px;
-            box-shadow: 0 6px 20px rgba(238, 90, 111, 0.3);
+            border-radius: 0;
+            box-shadow: none;
             text-align: center;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .tema-principal {
+                font-size: 24px;
+                padding: 15px 15px;
+                margin-top: 25px;
+                margin-bottom: 20px;
+                letter-spacing: 1px;
+            }
         }
         
         .tema-principal:first-child {
@@ -59,7 +69,16 @@
             margin-bottom: 18px;
             background: linear-gradient(90deg, #e3f2fd 0%, transparent 100%);
             border-left: 5px solid #4a90e2;
-            border-radius: 5px;
+            border-radius: 0;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .subtema {
+                font-size: 18px;
+                padding: 10px 15px;
+                margin-top: 20px;
+                margin-bottom: 12px;
+            }
         }
         
         /* NIVEL 3 - CONCEPTOS CLAVE (VERDE) */
@@ -80,6 +99,17 @@
             font-size: 20px;
         }
         
+        @media screen and (max-width: 768px) {
+            .concepto {
+                font-size: 15px;
+                padding-left: 25px;
+            }
+            .concepto:before {
+                left: 5px;
+                font-size: 16px;
+            }
+        }
+        
         /* NIVEL 4 - DETALLES (NEGRO) */
         .detalle {
             color: #2c3e50;
@@ -98,14 +128,22 @@
             color: #95a5a6;
         }
         
+        @media screen and (max-width: 768px) {
+            .detalle {
+                font-size: 14px;
+                margin-left: 30px;
+                padding-left: 15px;
+            }
+        }
+        
         /* RECUADROS MEJORADOS */
         .recuadro-ejemplo {
             border: 3px solid #27ae60;
             background: linear-gradient(135deg, #f0fff4 0%, #e8f8f0 100%);
             padding: 20px 25px;
             margin: 20px 0;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.15);
+            border-radius: 0;
+            box-shadow: none;
         }
         
         .recuadro-ejemplo .titulo {
@@ -130,7 +168,23 @@
             font-family: 'Fira Code', monospace;
             background: white;
             padding: 15px;
-            border-radius: 8px;
+            border-radius: 0;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .recuadro-ejemplo {
+                padding: 15px;
+                margin: 15px 0;
+            }
+            .recuadro-ejemplo .titulo {
+                font-size: 16px;
+            }
+            .recuadro-ejemplo .contenido {
+                font-size: 12px;
+                padding: 10px;
+                line-height: 1.6;
+                overflow-x: auto;
+            }
         }
         
         .recuadro-importante {
@@ -138,8 +192,8 @@
             background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%);
             padding: 20px 25px;
             margin: 20px 0;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.15);
+            border-radius: 0;
+            box-shadow: none;
         }
         
         .recuadro-importante .titulo {
@@ -164,7 +218,22 @@
             font-family: 'Fira Code', monospace;
             background: white;
             padding: 15px;
-            border-radius: 8px;
+            border-radius: 0;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .recuadro-importante {
+                padding: 15px;
+                margin: 15px 0;
+            }
+            .recuadro-importante .titulo {
+                font-size: 16px;
+            }
+            .recuadro-importante .contenido {
+                font-size: 13px;
+                padding: 10px;
+                overflow-x: auto;
+            }
         }
         
         .recuadro-explicacion {
@@ -172,8 +241,8 @@
             background: linear-gradient(135deg, #f0f8ff 0%, #e3f2fd 100%);
             padding: 20px 25px;
             margin: 20px 0;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(74, 144, 226, 0.15);
+            border-radius: 0;
+            box-shadow: none;
         }
         
         .recuadro-explicacion .titulo {
@@ -197,14 +266,28 @@
             line-height: 1.8;
             background: white;
             padding: 15px;
-            border-radius: 8px;
+            border-radius: 0;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .recuadro-explicacion {
+                padding: 15px;
+                margin: 15px 0;
+            }
+            .recuadro-explicacion .titulo {
+                font-size: 16px;
+            }
+            .recuadro-explicacion .contenido {
+                font-size: 13px;
+                padding: 10px;
+            }
         }
         
         .formula {
             font-family: 'Fira Code', monospace;
             background: #f8f9fa;
             padding: 4px 10px;
-            border-radius: 6px;
+            border-radius: 0;
             border: 1px solid #dee2e6;
             font-weight: 500;
             color: #495057;
@@ -216,8 +299,16 @@
             margin: 20px 0;
             text-align: center;
             background: linear-gradient(135deg, #f8f9fa 0%, #ecf0f1 100%);
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(149, 165, 166, 0.1);
+            border-radius: 0;
+            box-shadow: none;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .diagrama {
+                padding: 15px;
+                margin: 15px 0;
+                overflow-x: auto;
+            }
         }
         
         .diagrama-titulo {
@@ -225,6 +316,13 @@
             margin-bottom: 20px;
             color: #2c3e50;
             font-size: 18px;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .diagrama-titulo {
+                font-size: 16px;
+                margin-bottom: 15px;
+            }
         }
         
         .separador {
@@ -241,6 +339,22 @@
             font-weight: 600;
         }
         
+        /* Evitar desbordamiento horizontal en móvil */
+        @media screen and (max-width: 768px) {
+            * {
+                word-wrap: break-word;
+            }
+            
+            pre, code {
+                overflow-x: auto;
+                white-space: pre-wrap;
+            }
+            
+            body {
+                overflow-x: hidden;
+            }
+        }
+        
         /* Estilos responsivos */
         @media print {
             body {
@@ -250,12 +364,157 @@
             .page {
                 box-shadow: none;
                 border-radius: 0;
+                border: none;
                 page-break-after: always;
+                margin: 0;
+                padding: 2cm !important;
+                max-width: 100% !important;
+            }
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            /* Restaurar tamaños normales para impresión */
+            .tema-principal {
+                font-size: 32px !important;
+                padding: 20px 25px !important;
+            }
+            .subtema {
+                font-size: 22px !important;
+            }
+            .concepto {
+                font-size: 17px !important;
+            }
+            .detalle {
+                font-size: 15px !important;
             }
         }
     </style>
 </head>
 <body>
+
+    <!-- PÁGINA 0: ÍNDICE -->
+    <div class="page">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <h1 style="font-size: 48px; color: #667eea; font-weight: 700; margin-bottom: 20px;">
+                📚 RESUMEN DE MATEMÁTICAS
+            </h1>
+            <p style="color: #95a5a6; font-size: 18px; margin-bottom: 20px;">
+                Temario completo organizado y visual
+            </p>
+        </div>
+
+        <style>
+            @media screen and (max-width: 768px) {
+                .page > div:first-child h1 {
+                    font-size: 32px !important;
+                }
+                .page > div:first-child p {
+                    font-size: 16px !important;
+                }
+            }
+        </style>
+
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px; border-radius: 0; color: white;">
+            <h2 style="font-size: 32px; margin-bottom: 30px; text-align: center;">📑 ÍNDICE</h2>
+            
+            <div style="background: white; padding: 30px; border-radius: 0; color: #2c3e50;">
+                
+                <style>
+                    @media screen and (max-width: 768px) {
+                        .page > div:nth-child(3) {
+                            padding: 20px !important;
+                        }
+                        .page > div:nth-child(3) h2 {
+                            font-size: 24px !important;
+                        }
+                        .page > div:nth-child(3) > div {
+                            padding: 15px !important;
+                        }
+                        .page > div:nth-child(3) h3 {
+                            font-size: 18px !important;
+                        }
+                        .page > div:nth-child(3) div[style*="line-height"] {
+                            font-size: 14px !important;
+                            line-height: 1.8 !important;
+                        }
+                        .page > div:nth-child(3) div[style*="margin-left: 25px"] {
+                            margin-left: 15px !important;
+                        }
+                    }
+                </style>
+                
+                <div style="margin-bottom: 35px;">
+                    <h3 style="color: #e74c3c; font-size: 24px; margin-bottom: 15px; border-bottom: 3px solid #e74c3c; padding-bottom: 10px;">
+                        TEMA 1: Los números reales
+                    </h3>
+                    <div style="margin-left: 20px; line-height: 2.2;">
+                        <div><strong>1.</strong> Clasificación de ℝ (números reales)</div>
+                        <div><strong>2.</strong> Intervalos</div>
+                        <div style="margin-left: 25px;">2.1 Tipos de intervalos</div>
+                        <div style="margin-left: 25px;">2.2 Semirrectas</div>
+                        <div style="margin-left: 25px;">2.3 Unión e intersección</div>
+                        <div><strong>3.</strong> Radicales</div>
+                        <div style="margin-left: 25px;">3.1 Simplificación de radicales</div>
+                        <div style="margin-left: 25px;">3.2 Suma y resta de radicales</div>
+                        <div style="margin-left: 25px;">3.3 Reducir radicales a índice común</div>
+                        <div style="margin-left: 25px;">3.4 Producto y división de radicales</div>
+                        <div style="margin-left: 25px;">3.5 Potencias y raíces</div>
+                        <div><strong>4.</strong> Racionalización</div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 35px;">
+                    <h3 style="color: #e74c3c; font-size: 24px; margin-bottom: 15px; border-bottom: 3px solid #e74c3c; padding-bottom: 10px;">
+                        TEMA 2: Ecuaciones, inecuaciones y sistemas
+                    </h3>
+                    <div style="margin-left: 20px; line-height: 2.2;">
+                        <div><strong>1.</strong> Ecuaciones polinómicas</div>
+                        <div><strong>2.</strong> Método de Ruffini</div>
+                        <div><strong>3.</strong> Ecuaciones con radicales</div>
+                        <div><strong>4.</strong> Ecuaciones con fracciones algebraicas</div>
+                        <div><strong>5.</strong> Logaritmos</div>
+                        <div><strong>6.</strong> Ecuaciones exponenciales</div>
+                        <div><strong>7.</strong> Resolución de sistemas de ecuaciones</div>
+                        <div style="margin-left: 25px;">• Sustitución</div>
+                        <div style="margin-left: 25px;">• Igualación</div>
+                        <div style="margin-left: 25px;">• Reducción</div>
+                        <div><strong>8.</strong> Método de Gauss</div>
+                        <div><strong>9.</strong> Sistemas de inecuaciones</div>
+                        <div style="margin-left: 25px;">9.1 Inecuaciones con 1 incógnita</div>
+                        <div style="margin-left: 25px;">9.2 Inecuaciones con fracciones</div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="color: #e74c3c; font-size: 24px; margin-bottom: 15px; border-bottom: 3px solid #e74c3c; padding-bottom: 10px;">
+                        TEMA 3: Trigonometría
+                    </h3>
+                    <div style="margin-left: 20px; line-height: 2.2;">
+                        <div><strong>1.</strong> Razones trigonométricas</div>
+                        <div style="margin-left: 25px;">1.1 Medidas de ángulos</div>
+                        <div style="margin-left: 25px;">1.2 Definiciones de razones trigonométricas</div>
+                        <div style="margin-left: 25px;">1.3 Circunferencia goniométrica</div>
+                        <div style="margin-left: 25px;">1.4 Razones de ángulos notables</div>
+                        <div style="margin-left: 25px;">1.5 Relaciones de razones trigonométricas</div>
+                        <div><strong>2.</strong> Propiedades</div>
+                        <div style="margin-left: 25px;">• Ángulo doble</div>
+                        <div style="margin-left: 25px;">• Ángulo mitad</div>
+                        <div style="margin-left: 25px;">• Suma y resta de ángulos</div>
+                        <div><strong>3.</strong> Ecuaciones trigonométricas</div>
+                        <div><strong>4.</strong> Resolución de triángulos</div>
+                        <div style="margin-left: 25px;">• Teorema del seno</div>
+                        <div style="margin-left: 25px;">• Teorema del coseno</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div style="margin-top: 50px; text-align: center; color: #95a5a6; font-size: 14px;">
+            <p>📖 Creado con colores: Rojo (temas), Azul (subtemas), Verde (conceptos), Negro (detalles)</p>
+        </div>
+    </div>
 
     <!-- PÁGINA 1: TEMA 1 - NÚMEROS REALES -->
     <div class="page">
