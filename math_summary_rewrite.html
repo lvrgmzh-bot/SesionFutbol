@@ -130,9 +130,9 @@
         
         @media screen and (max-width: 768px) {
             .detalle {
-                font-size: 14px;
-                margin-left: 30px;
-                padding-left: 15px;
+                font-size: 13px !important;
+                margin-left: 20px !important;
+                padding-left: 12px !important;
             }
         }
         
@@ -173,16 +173,17 @@
         
         @media screen and (max-width: 768px) {
             .recuadro-ejemplo {
-                padding: 15px;
-                margin: 15px 0;
+                padding: 12px !important;
+                margin: 12px 0 !important;
+                border-width: 2px !important;
             }
             .recuadro-ejemplo .titulo {
-                font-size: 16px;
+                font-size: 15px !important;
             }
             .recuadro-ejemplo .contenido {
-                font-size: 12px;
-                padding: 10px;
-                line-height: 1.6;
+                font-size: 11px !important;
+                padding: 8px !important;
+                line-height: 1.5 !important;
                 overflow-x: auto;
             }
         }
@@ -223,15 +224,16 @@
         
         @media screen and (max-width: 768px) {
             .recuadro-importante {
-                padding: 15px;
-                margin: 15px 0;
+                padding: 12px !important;
+                margin: 12px 0 !important;
+                border-width: 2px !important;
             }
             .recuadro-importante .titulo {
-                font-size: 16px;
+                font-size: 15px !important;
             }
             .recuadro-importante .contenido {
-                font-size: 13px;
-                padding: 10px;
+                font-size: 12px !important;
+                padding: 8px !important;
                 overflow-x: auto;
             }
         }
@@ -271,15 +273,16 @@
         
         @media screen and (max-width: 768px) {
             .recuadro-explicacion {
-                padding: 15px;
-                margin: 15px 0;
+                padding: 12px !important;
+                margin: 12px 0 !important;
+                border-width: 2px !important;
             }
             .recuadro-explicacion .titulo {
-                font-size: 16px;
+                font-size: 15px !important;
             }
             .recuadro-explicacion .contenido {
-                font-size: 13px;
-                padding: 10px;
+                font-size: 12px !important;
+                padding: 8px !important;
             }
         }
         
@@ -305,9 +308,10 @@
         
         @media screen and (max-width: 768px) {
             .diagrama {
-                padding: 15px;
-                margin: 15px 0;
+                padding: 12px !important;
+                margin: 12px 0 !important;
                 overflow-x: auto;
+                border-width: 2px !important;
             }
         }
         
@@ -341,17 +345,23 @@
         
         /* Evitar desbordamiento horizontal en móvil */
         @media screen and (max-width: 768px) {
+            html {
+                overflow-x: hidden;
+            }
+            
+            body {
+                overflow-x: hidden;
+                width: 100%;
+            }
+            
             * {
                 word-wrap: break-word;
+                max-width: 100%;
             }
             
             pre, code {
                 overflow-x: auto;
                 white-space: pre-wrap;
-            }
-            
-            body {
-                overflow-x: hidden;
             }
         }
         
@@ -395,22 +405,46 @@
 
     <!-- PÁGINA 0: ÍNDICE -->
     <div class="page">
-        <div style="text-align: center; margin-bottom: 30px;">
-            <h1 style="font-size: 48px; color: #667eea; font-weight: 700; margin-bottom: 20px;">
-                📚 RESUMEN DE MATEMÁTICAS
-            </h1>
-            <p style="color: #95a5a6; font-size: 18px; margin-bottom: 20px;">
-                Temario completo organizado y visual
-            </p>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 250px;">
+                <h1 style="font-size: 48px; color: #667eea; font-weight: 700; margin-bottom: 20px;">
+                    📚 RESUMEN DE MATEMÁTICAS
+                </h1>
+                <p style="color: #95a5a6; font-size: 18px; margin-bottom: 20px;">
+                    Temario completo organizado y visual
+                </p>
+            </div>
+            <div style="width: 150px; height: 150px; border: 2px solid #667eea; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-left: 20px; background: white; padding: 10px;">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="QR Code" style="width: 100%; height: 100%; object-fit: contain;" id="qr-placeholder">
+            </div>
         </div>
 
         <style>
             @media screen and (max-width: 768px) {
-                .page > div:first-child h1 {
+                .page > div:first-child {
+                    flex-direction: column !important;
+                    align-items: center !important;
+                }
+                .page > div:first-child > div:first-child {
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+                .page > div:first-child > div:first-child h1 {
                     font-size: 32px !important;
                 }
-                .page > div:first-child p {
+                .page > div:first-child > div:first-child p {
                     font-size: 16px !important;
+                }
+                .page > div:first-child > div:last-child {
+                    margin-left: 0 !important;
+                    width: 130px !important;
+                    height: 130px !important;
+                }
+            }
+            
+            @media print {
+                #qr-placeholder {
+                    display: block !important;
                 }
             }
         </style>
@@ -423,23 +457,26 @@
                 <style>
                     @media screen and (max-width: 768px) {
                         .page > div:nth-child(3) {
-                            padding: 20px !important;
-                        }
-                        .page > div:nth-child(3) h2 {
-                            font-size: 24px !important;
-                        }
-                        .page > div:nth-child(3) > div {
                             padding: 15px !important;
                         }
+                        .page > div:nth-child(3) h2 {
+                            font-size: 22px !important;
+                        }
+                        .page > div:nth-child(3) > div {
+                            padding: 12px !important;
+                        }
                         .page > div:nth-child(3) h3 {
-                            font-size: 18px !important;
+                            font-size: 17px !important;
                         }
                         .page > div:nth-child(3) div[style*="line-height"] {
-                            font-size: 14px !important;
-                            line-height: 1.8 !important;
+                            font-size: 13px !important;
+                            line-height: 1.6 !important;
                         }
                         .page > div:nth-child(3) div[style*="margin-left: 25px"] {
-                            margin-left: 15px !important;
+                            margin-left: 12px !important;
+                        }
+                        .page > div:nth-child(3) div[style*="margin-left: 20px"] {
+                            margin-left: 10px !important;
                         }
                     }
                 </style>
