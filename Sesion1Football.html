@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios de Fútbol - Animaciones Mejoradas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .exercise {
+            background: linear-gradient(145deg, #2a2a3e 0%, #1f1f2e 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .exercise:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+        }
+        
+        .exercise h2 {
+            color: #4CAF50;
+            margin-bottom: 15px;
+            border-bottom: 3px solid #4CAF50;
+            padding-bottom: 12px;
+            font-size: 1.5em;
+        }
+        
+        .exercise-info {
+            margin-bottom: 20px;
+            color: #ccc;
+            line-height: 1.8;
+            background: rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .exercise-info strong {
+            color: #4CAF50;
+            font-weight: 600;
+        }
+        
+        .canvas-container {
+            display: flex;
+            justify-content: center;
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        
+        canvas {
+            border: 4px solid #4CAF50;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #2d5016 0%, #1a3309 100%);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+        }
+        
+        button:hover {
+            background: linear-gradient(135deg, #45a049 0%, #3d8b40 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button:disabled {
+            background: #555;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+        
+        .legend {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            padding: 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 5px 10px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+        }
+        
+        .legend-color {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .speed-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #ccc;
+        }
+
+        input[type="range"] {
+            width: 150px;
+            accent-color: #4CAF50;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            canvas {
+                max-width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚽ Ejercicios de Fútbol - Animaciones</h1>
+        
+        <!-- Ejercicio 1: Pase por parejas -->
+        <div class="exercise">
+            <h2>Calentamiento Específico - Pase por Parejas</h2>
+            <div class="exercise-info">
+                <strong>Organización:</strong> 11 parejas + 1 grupo de 3 alumnos<br>
+                <strong>Duración:</strong> 8 minutos<br>
+                <strong>Objetivo:</strong> Precisión y control del balón con el interior del pie
+            </div>
+            <div class="canvas-container">
+                <canvas id="canvas1" width="700" height="400"></canvas>
+            </div>
+            <div class="controls">
+                <button onclick="toggleAnimation('canvas1')">⏯️ Pausar/Reanudar</button>
+                <button onclick="resetAnimation('canvas1')">🔄 Reiniciar</button>
+            </div>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #3498db;"></div>
+                    <span>Jugadores</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #f1c40f;"></div>
+                    <span>Balón</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: rgba(255,255,255,0.3);"></div>
+                    <span>Trayectoria del pase</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ejercicio 2: Cuadrado de pases -->
+        <div class="exercise">
+            <h2>Parte Principal - Ejercicio 1: Cuadrado de Pases</h2>
+            <div class="exercise-info">
+                <strong>Organización:</strong> 6 grupos de 4-5 alumnos<br>
+                <strong>Duración:</strong> 6 minutos<br>
+                <strong>Objetivo:</strong> Precisión, coordinación y comunicación en el pase
+            </div>
+            <div class="canvas-container">
+                <canvas id="canvas2" width="700" height="400"></canvas>
+            </div>
+            <div class="controls">
+                <button onclick="toggleAnimation('canvas2')">⏯️ Pausar/Reanudar</button>
+                <button onclick="resetAnimation('canvas2')">🔄 Reiniciar</button>
+            </div>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #3498db;"></div>
+                    <span>Jugadores</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #f1c40f;"></div>
+                    <span>Balón</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #e74c3c;"></div>
+                    <span>Conos</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ejercicio 3: Conservación 4 vs 2 -->
+        <div class="exercise">
+            <h2>Parte Principal - Ejercicio 2: Conservación 4 vs 2</h2>
+            <div class="exercise-info">
+                <strong>Organización:</strong> 4 grupos de 6-7 alumnos<br>
+                <strong>Duración:</strong> 6 minutos<br>
+                <strong>Objetivo:</strong> Mantener posesión y encontrar espacios libres
+            </div>
+            <div class="canvas-container">
+                <canvas id="canvas3" width="700" height="400"></canvas>
+            </div>
+            <div class="controls">
+                <button onclick="toggleAnimation('canvas3')">⏯️ Pausar/Reanudar</button>
+                <button onclick="resetAnimation('canvas3')">🔄 Reiniciar</button>
+            </div>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #3498db;"></div>
+                    <span>Atacantes (4)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #e74c3c;"></div>
+                    <span>Defensores (2)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #f1c40f;"></div>
+                    <span>Balón</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ejercicio 4: Pasar y desmarcarse -->
+        <div class="exercise">
+            <h2>Parte Principal - Ejercicio 3: Pasar y Desmarcarse</h2>
+            <div class="exercise-info">
+                <strong>Organización:</strong> 5 grupos de 5 alumnos (1 balón por grupo)<br>
+                <strong>Duración:</strong> 7 minutos<br>
+                <strong>Objetivo:</strong> Movimiento sin balón y visión de juego<br>
+                <strong>Dinámica:</strong> Tras pasar el balón, el jugador se desplaza al lugar donde pasó
+            </div>
+            <div class="canvas-container">
+                <canvas id="canvas4" width="700" height="400"></canvas>
+            </div>
+            <div class="controls">
+                <button onclick="toggleAnimation('canvas4')">⏯️ Pausar/Reanudar</button>
+                <button onclick="resetAnimation('canvas4')">🔄 Reiniciar</button>
+            </div>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #3498db;"></div>
+                    <span>Jugadores</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #f1c40f;"></div>
+                    <span>Balón (1 por grupo)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #2ecc71;"></div>
+                    <span>Jugador con balón</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #9b59b6;"></div>
+                    <span>Jugador en movimiento</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ejercicio 5: Control y pase en línea -->
+        <div class="exercise">
+            <h2>Parte Principal - Ejercicio 4: Control y Pase en Línea</h2>
+            <div class="exercise-info">
+                <strong>Organización:</strong> 2 filas enfrentadas (12 y 13 alumnos)<br>
+                <strong>Duración:</strong> 7 minutos<br>
+                <strong>Objetivo:</strong> Control del balón y precisión en el pase<br>
+                <strong>Orden de pases:</strong> Los jugadores pasan en orden secuencial (1→1, 2→2, 3→3, etc.)
+            </div>
+            <div class="canvas-container">
+                <canvas id="canvas5" width="700" height="400"></canvas>
+            </div>
+            <div class="controls">
+                <button onclick="toggleAnimation('canvas5')">⏯️ Pausar/Reanudar</button>
+                <button onclick="resetAnimation('canvas5')">🔄 Reiniciar</button>
+                <button onclick="changeBallCount('canvas5')">⚽ Cambiar número de pelotas</button>
+            </div>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #3498db;"></div>
+                    <span>Fila 1</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #e74c3c;"></div>
+                    <span>Fila 2</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #f1c40f;"></div>
+                    <span>Balón</span>
+                </div>
+                <div class="legend-item">
+                    <span id="ballCountDisplay5">Número de pelotas: 1</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ejercicio 6: Partidillo -->
+        <div class="exercise">
+            <h2>Partidillo Final</h2>
+            <div class="exercise-info">
+                <strong>Organización:</strong> 2 equipos de 12 alumnos + 1 comodín<br>
+                <strong>Duración:</strong> 8 minutos<br>
+                <strong>Objetivo:</strong> Aplicar todo lo aprendido en juego real<br>
+                <strong>Reglas:</strong> Máximo 2 toques por jugador | Gol válido tras 3 pases consecutivos
+            </div>
+            <div class="canvas-container">
+                <canvas id="canvas6" width="700" height="400"></canvas>
+            </div>
+            <div class="controls">
+                <button onclick="toggleAnimation('canvas6')">⏯️ Pausar/Reanudar</button>
+                <button onclick="resetAnimation('canvas6')">🔄 Reiniciar</button>
+            </div>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #3498db;"></div>
+                    <span>Equipo Azul (12)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #e74c3c;"></div>
+                    <span>Equipo Rojo (12)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #f1c40f;"></div>
+                    <span>Comodín</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #fff;"></div>
+                    <span>Balón</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const animations = {};
+
+        // Función auxiliar para dibujar jugador con número
+        function drawPlayer(ctx, x, y, color, number = null, size = 12) {
+            // Sombra
+            ctx.shadowColor = 'rgba(0,0,0,0.5)';
+            ctx.shadowBlur = 5;
+            ctx.shadowOffsetX = 2;
+            ctx.shadowOffsetY = 2;
+            
+            // Jugador
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.arc(x, y, size, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Borde
+            ctx.shadowColor = 'transparent';
+            ctx.strokeStyle = '#fff';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            
+            // Número
+            if (number !== null) {
+                ctx.fillStyle = '#fff';
+                ctx.font = `bold ${size}px Arial`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(number, x, y);
+            }
+        }
+
+        // Función auxiliar para dibujar balón
+        function drawBall(ctx, x, y, size = 8) {
+            ctx.shadowColor = 'rgba(0,0,0,0.6)';
+            ctx.shadowBlur = 8;
+            ctx.shadowOffsetX = 3;
+            ctx.shadowOffsetY = 3;
+            
+            // Balón principal
+            ctx.fillStyle = '#fff';
+            ctx.beginPath();
+            ctx.arc(x, y, size, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Detalles del balón
+            ctx.shadowColor = 'transparent';
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+            
+            // Pentágonos decorativos
+            ctx.fillStyle = '#000';
+            ctx.beginPath();
+            ctx.arc(x - size/3, y - size/3, size/4, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        // Función auxiliar para dibujar cono
+        function drawCone(ctx, x, y) {
+            ctx.shadowColor = 'rgba(0,0,0,0.4)';
+            ctx.shadowBlur = 4;
+            
+            // Base del cono
+            ctx.fillStyle = '#e74c3c';
+            ctx.beginPath();
+            ctx.moveTo(x, y - 12);
+            ctx.lineTo(x - 6, y + 4);
+            ctx.lineTo(x + 6, y + 4);
+            ctx.closePath();
+            ctx.fill();
+            
+            // Borde
+            ctx.shadowColor = 'transparent';
+            ctx.strokeStyle = '#c0392b';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+
+        // Función para dibujar línea de pase
+        function drawPassLine(ctx, x1, y1, x2, y2, progress = 1) {
+            ctx.save();
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+            ctx.lineWidth = 3;
+            ctx.setLineDash([10, 5]);
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x1 + (x2 - x1) * progress, y1 + (y2 - y1) * progress);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.restore();
+        }
+
+        // EJERCICIO 1: Pase por parejas
+        function initCanvas1() {
+            const canvas = document.getElementById('canvas1');
+            const ctx = canvas.getContext('2d');
+            
+            const pairs = [];
+            const numPairs = 6; // Mostramos 6 parejas de ejemplo
+            
+            for (let i = 0; i < numPairs; i++) {
+                const row = Math.floor(i / 3);
+                const col = i % 3;
+                const x = 120 + col * 220;
+                const y = 120 + row * 160;
+                
+                pairs.push({
+                    player1: { x: x - 50, y: y },
+                    player2: { x: x + 50, y: y },
+                    ball: { x: x - 50, y: y },
+                    passing: false,
+                    direction: 1,
+                    progress: 0
+                });
+            }
+            
+            animations['canvas1'] = {
+                running: true,
+                pairs: pairs,
+                draw: function() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Título
+                    ctx.fillStyle = '#4CAF50';
+                    ctx.font = 'bold 18px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.shadowColor = 'rgba(0,0,0,0.5)';
+                    ctx.shadowBlur = 5;
+                    ctx.fillText('PASES POR PAREJAS', canvas.width / 2, 30);
+                    ctx.shadowColor = 'transparent';
+                    
+                    // Subtítulo
+                    ctx.fillStyle = '#ccc';
+                    ctx.font = '14px Arial';
+                    ctx.fillText('Trabajo de precisión con el interior del pie', canvas.width / 2, 55);
+                    
+                    this.pairs.forEach((pair, index) => {
+                        // Dibujar jugadores
+                        drawPlayer(ctx, pair.player1.x, pair.player1.y, '#3498db', null, 14);
+                        drawPlayer(ctx, pair.player2.x, pair.player2.y, '#3498db', null, 14);
+                        
+                        // Actualizar posición del balón
+                        if (!pair.passing) {
+                            // Iniciar pase
+                            if (Math.random() < 0.015) {
+                                pair.passing = true;
+                                pair.progress = 0;
+                            }
+                        } else {
+                            // Animar pase
+                            pair.progress += 0.02;
+                            
+                            const startX = pair.direction > 0 ? pair.player1.x : pair.player2.x;
+                            const endX = pair.direction > 0 ? pair.player2.x : pair.player1.x;
+                            const y = pair.player1.y;
+                            
+                            pair.ball.x = startX + (endX - startX) * pair.progress;
+                            pair.ball.y = y;
+                            
+                            // Línea de pase
+                            drawPassLine(ctx, startX, y, endX, y, pair.progress);
+                            
+                            if (pair.progress >= 1) {
+                                pair.passing = false;
+                                pair.direction *= -1;
+                                pair.ball.x = pair.direction > 0 ? pair.player1.x : pair.player2.x;
+                            }
+                        }
+                        
+                        // Dibujar balón
+                        drawBall(ctx, pair.ball.x, pair.ball.y, 7);
+                    });
+                },
+                reset: function() {
+                    this.pairs.forEach(pair => {
+                        pair.ball.x = pair.player1.x;
+                        pair.ball.y = pair.player1.y;
+                        pair.passing = false;
+                        pair.direction = 1;
+                        pair.progress = 0;
+                    });
+                }
+            };
+        }
+
+        // EJERCICIO 2: Cuadrado de pases
+        function initCanvas2() {
+            const canvas = document.getElementById('canvas2');
+            const ctx = canvas.getContext('2d');
+            
+            const squareSize = 160;
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            
+            const players = [
+                { x: centerX - squareSize/2, y: centerY - squareSize/2, number: 1 },
+                { x: centerX + squareSize/2, y: centerY - squareSize/2, number: 2 },
+                { x: centerX + squareSize/2, y: centerY + squareSize/2, number: 3 },
+                { x: centerX - squareSize/2, y: centerY + squareSize/2, number: 4 }
+            ];
+            
+            const cones = [
+                { x: centerX - squareSize/2, y: centerY - squareSize/2 },
+                { x: centerX + squareSize/2, y: centerY - squareSize/2 },
+                { x: centerX + squareSize/2, y: centerY + squareSize/2 },
+                { x: centerX - squareSize/2, y: centerY + squareSize/2 }
+            ];
+            
+            animations['canvas2'] = {
+                running: true,
+                players: players,
+                cones: cones,
+                ball: { x: players[0].x, y: players[0].y },
+                currentPlayer: 0,
+                targetPlayer: 1,
+                progress: 0,
+                passing: false,
+                draw: function() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Título
+                    ctx.fillStyle = '#4CAF50';
+                    ctx.font = 'bold 18px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.shadowColor = 'rgba(0,0,0,0.5)';
+                    ctx.shadowBlur = 5;
+                    ctx.fillText('CUADRADO DE PASES', canvas.width / 2, 30);
+                    ctx.shadowColor = 'transparent';
+                    
+                    ctx.fillStyle = '#ccc';
+                    ctx.font = '14px Arial';
+                    ctx.fillText('Secuencia: 1 → 2 → 3 → 4 → 1', canvas.width / 2, 55);
+                    
+                    // Dibujar líneas del cuadrado
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+                    ctx.lineWidth = 2;
+                    ctx.setLineDash([5, 5]);
+                    ctx.beginPath();
+                    ctx.moveTo(this.players[0].x, this.players[0].y);
+                    for (let i = 1; i < this.players.length; i++) {
+                        ctx.lineTo(this.players[i].x, this.players[i].y);
+                    }
+                    ctx.closePath();
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                    
+                    // Dibujar conos
+                    this.cones.forEach(cone => {
+                        drawCone(ctx, cone.x, cone.y);
+                    });
+                    
+                    // Dibujar jugadores
+                    this.players.forEach((player, index) => {
+                        const isActive = index === this.currentPlayer || index === this.targetPlayer;
+                        const color = isActive ? '#2ecc71' : '#3498db';
+                        drawPlayer(ctx, player.x, player.y, color, player.number, 16);
+                    });
+                    
+                    // Animar pase
+                    if (!this.passing && Math.random() < 0.02) {
+                        this.passing = true;
+                        this.progress = 0;
+                    }
+                    
+                    if (this.passing) {
+                        this.progress += 0.015;
+                        
+                        const from = this.players[this.currentPlayer];
+                        const to = this.players[this.targetPlayer];
+                        
+                        this.ball.x = from.x + (to.x - from.x) * this.progress;
+                        this.ball.y = from.y + (to.y - from.y) * this.progress;
+                        
+                        drawPassLine(ctx, from.x, from.y, to.x, to.y, this.progress);
+                        
+                        if (this.progress >= 1) {
+                            this.passing = false;
+                            this.currentPlayer = this.targetPlayer;
+                            this.targetPlayer = (this.targetPlayer + 1) % 4;
+                        }
+                    }
+                    
+                    // Dibujar balón
+                    drawBall(ctx, this.ball.x, this.ball.y);
+                },
+                reset: function() {
+                    this.ball.x = this.players[0].x;
+                    this.ball.y = this.players[0].y;
+                    this.currentPlayer = 0;
+                    this.targetPlayer = 1;
+                    this.progress = 0;
+                    this.passing = false;
+                }
+            };
+        }
+
+        // EJERCICIO 3: Conservación 4 vs 2
+        function initCanvas3() {
+            const canvas = document.getElementById('canvas3');
+            const ctx = canvas.getContext('2d');
+            
+            const attackers = [
+                { x: 200, y: 150, vx: 0, vy: 0, radius: 15 },
+                { x: 500, y: 150, vx: 0, vy: 0, radius: 15 },
+                { x: 200, y: 300, vx: 0, vy: 0, radius: 15 },
+                { x: 500, y: 300, vx: 0, vy: 0, radius: 15 }
+            ];
+            
+            const defenders = [
+                { x: 320, y: 200, vx: 0.6, vy: 0.4, radius: 14 },
+                { x: 380, y: 250, vx: -0.5, vy: -0.6, radius: 14 }
+            ];
+            
+            animations['canvas3'] = {
+                running: true,
+                attackers: attackers,
+                defenders: defenders,
+                ball: { x: attackers[0].x, y: attackers[0].y },
+                ballOwner: 0,
+                targetPlayer: 1,
+                passing: false,
+                progress: 0,
+                passCounter: 0,
+                draw: function() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Título
+                    ctx.fillStyle = '#4CAF50';
+                    ctx.font = 'bold 18px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.shadowColor = 'rgba(0,0,0,0.5)';
+                    ctx.shadowBlur = 5;
+                    ctx.fillText('CONSERVACIÓN 4 vs 2', canvas.width / 2, 30);
+                    ctx.shadowColor = 'transparent';
+                    
+                    ctx.fillStyle = '#ccc';
+                    ctx.font = '14px Arial';
+                    ctx.fillText(`Pases consecutivos: ${this.passCounter}`, canvas.width / 2, 55);
+                    
+                    // Zona de juego
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+                    ctx.lineWidth = 3;
+                    ctx.strokeRect(150, 100, 400, 250);
+                    
+                    // Mover atacantes sin balón
+                    this.attackers.forEach((attacker, index) => {
+                        if (index !== this.ballOwner && !this.passing) {
+                            // Movimiento aleatorio suave
+                            const randomMove = 0.3;
+                            attacker.vx += (Math.random() - 0.5) * randomMove;
+                            attacker.vy += (Math.random() - 0.5) * randomMove;
+                            
+                            // Limitar velocidad
+                            const speed = Math.sqrt(attacker.vx * attacker.vx + attacker.vy * attacker.vy);
+                            const maxSpeed = 0.8;
+                            if (speed > maxSpeed) {
+                                attacker.vx = (attacker.vx / speed) * maxSpeed;
+                                attacker.vy = (attacker.vy / speed) * maxSpeed;
+                            }
+                            
+                            // Aplicar movimiento
+                            attacker.x += attacker.vx;
+                            attacker.y += attacker.vy;
+                            
+                            // Aplicar fricción
+                            attacker.vx *= 0.95;
+                            attacker.vy *= 0.95;
+                            
+                            // Mantener dentro del área con rebote
+                            if (attacker.x < 170) {
+                                attacker.x = 170;
+                                attacker.vx = Math.abs(attacker.vx);
+                            }
+                            if (attacker.x > 530) {
+                                attacker.x = 530;
+                                attacker.vx = -Math.abs(attacker.vx);
+                            }
+                            if (attacker.y < 120) {
+                                attacker.y = 120;
+                                attacker.vy = Math.abs(attacker.vy);
+                            }
+                            if (attacker.y > 330) {
+                                attacker.y = 330;
+                                attacker.vy = -Math.abs(attacker.vy);
+                            }
+                        }
+                    });
+                    
+                    // Mover defensores persiguiendo el balón
+                    this.defenders.forEach((defender) => {
+                        const dx = this.ball.x - defender.x;
+                        const dy = this.ball.y - defender.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (dist > 0) {
+                            const acceleration = 0.02;
+                            defender.vx += (dx / dist) * acceleration;
+                            defender.vy += (dy / dist) * acceleration;
+                        }
+                        
+                        // Limitar velocidad máxima
+                        const speed = Math.sqrt(defender.vx * defender.vx + defender.vy * defender.vy);
+                        const maxSpeed = 1.2;
+                        if (speed > maxSpeed) {
+                            defender.vx = (defender.vx / speed) * maxSpeed;
+                            defender.vy = (defender.vy / speed) * maxSpeed;
+                        }
+                        
+                        // Aplicar movimiento
+                        defender.x += defender.vx;
+                        defender.y += defender.vy;
+                        
+                        // Aplicar fricción
+                        defender.vx *= 0.98;
+                        defender.vy *= 0.98;
+                        
+                        // Rebotar en los bordes
+                        if (defender.x < 170) {
+                            defender.x = 170;
+                            defender.vx = Math.abs(defender.vx) * 0.7;
+                        }
+                        if (defender.x > 530) {
+                            defender.x = 530;
+                            defender.vx = -Math.abs(defender.vx) * 0.7;
+                        }
+                        if (defender.y < 120) {
+                            defender.y = 120;
+                            defender.vy = Math.abs(defender.vy) * 0.7;
+                        }
+                        if (defender.y > 330) {
+                            defender.y = 330;
+                            defender.vy = -Math.abs(defender.vy) * 0.7;
+                        }
+                    });
+                    
+                    // Resolver colisiones entre TODOS los jugadores
+                    const allPlayers = [...this.attackers, ...this.defenders];
+                    
+                    for (let i = 0; i < allPlayers.length; i++) {
+                        for (let j = i + 1; j < allPlayers.length; j++) {
+                            const p1 = allPlayers[i];
+                            const p2 = allPlayers[j];
+                            
+                            const dx = p2.x - p1.x;
+                            const dy = p2.y - p1.y;
+                            const dist = Math.sqrt(dx * dx + dy * dy);
+                            const minDist = p1.radius + p2.radius + 10; // 10px de separación extra
+                            
+                            if (dist < minDist && dist > 0) {
+                                // Calcular vector normal
+                                const nx = dx / dist;
+                                const ny = dy / dist;
+                                
+                                // Separar jugadores
+                                const overlap = minDist - dist;
+                                p1.x -= nx * overlap * 0.5;
+                                p1.y -= ny * overlap * 0.5;
+                                p2.x += nx * overlap * 0.5;
+                                p2.y += ny * overlap * 0.5;
+                                
+                                // Intercambiar velocidades con rebote
+                                const relativeVx = p2.vx - p1.vx;
+                                const relativeVy = p2.vy - p1.vy;
+                                const dotProduct = relativeVx * nx + relativeVy * ny;
+                                
+                                if (dotProduct < 0) {
+                                    const bounceCoef = 0.6;
+                                    p1.vx += nx * dotProduct * bounceCoef;
+                                    p1.vy += ny * dotProduct * bounceCoef;
+                                    p2.vx -= nx * dotProduct * bounceCoef;
+                                    p2.vy -= ny * dotProduct * bounceCoef;
+                                }
+                            }
+                        }
+                    }
+                    
+                    // Dibujar atacantes
+                    this.attackers.forEach((attacker, index) => {
+                        const isActive = index === this.ballOwner || index === this.targetPlayer;
+                        const color = isActive ? '#2ecc71' : '#3498db';
+                        drawPlayer(ctx, attacker.x, attacker.y, color, index + 1, attacker.radius);
+                    });
+                    
+                    // Dibujar defensores
+                    this.defenders.forEach((defender) => {
+                        drawPlayer(ctx, defender.x, defender.y, '#e74c3c', null, defender.radius);
+                    });
+                    
+                    // Animar pase
+                    if (!this.passing && Math.random() < 0.018) {
+                        this.passing = true;
+                        this.progress = 0;
+                        
+                        // Elegir receptor aleatorio diferente al actual
+                        let options = [];
+                        for (let i = 0; i < 4; i++) {
+                            if (i !== this.ballOwner) options.push(i);
+                        }
+                        this.targetPlayer = options[Math.floor(Math.random() * options.length)];
+                    }
+                    
+                    if (this.passing) {
+                        this.progress += 0.03;
+                        
+                        const from = this.attackers[this.ballOwner];
+                        const to = this.attackers[this.targetPlayer];
+                        
+                        this.ball.x = from.x + (to.x - from.x) * this.progress;
+                        this.ball.y = from.y + (to.y - from.y) * this.progress;
+                        
+                        drawPassLine(ctx, from.x, from.y, to.x, to.y, this.progress);
+                        
+                        if (this.progress >= 1) {
+                            this.passing = false;
+                            this.ballOwner = this.targetPlayer;
+                            this.passCounter++;
+                        }
+                    } else {
+                        this.ball.x = this.attackers[this.ballOwner].x;
+                        this.ball.y = this.attackers[this.ballOwner].y;
+                    }
+                    
+                    // Dibujar balón
+                    drawBall(ctx, this.ball.x, this.ball.y);
+                },
+                reset: function() {
+                    // Restaurar posiciones iniciales
+                    this.attackers[0].x = 200; this.attackers[0].y = 150;
+                    this.attackers[1].x = 500; this.attackers[1].y = 150;
+                    this.attackers[2].x = 200; this.attackers[2].y = 300;
+                    this.attackers[3].x = 500; this.attackers[3].y = 300;
+                    
+                    this.attackers.forEach(a => {
+                        a.vx = 0;
+                        a.vy = 0;
+                    });
+                    
+                    this.defenders[0].x = 320; this.defenders[0].y = 200;
+                    this.defenders[0].vx = 0.6; this.defenders[0].vy = 0.4;
+                    this.defenders[1].x = 380; this.defenders[1].y = 250;
+                    this.defenders[1].vx = -0.5; this.defenders[1].vy = -0.6;
+                    
+                    this.ball.x = this.attackers[0].x;
+                    this.ball.y = this.attackers[0].y;
+                    this.ballOwner = 0;
+                    this.targetPlayer = 1;
+                    this.passing = false;
+                    this.progress = 0;
+                    this.passCounter = 0;
+                }
+            };
+        }
+
+        // EJERCICIO 4: Pasar y desmarcarse
+        function initCanvas4() {
+            const canvas = document.getElementById('canvas4');
+            const ctx = canvas.getContext('2d');
+            
+            const radius = 120;
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const numPlayers = 5;
+            
+            // Posiciones fijas en el círculo (sentido horario)
+            const positions = [];
+            for (let i = 0; i < numPlayers; i++) {
+                const angle = (i * 2 * Math.PI / numPlayers) - Math.PI / 2;
+                positions.push({
+                    x: centerX + radius * Math.cos(angle),
+                    y: centerY + radius * Math.sin(angle)
+                });
+            }
+            
+            // Jugadores en las posiciones (irán rotando)
+            const players = [];
+            for (let i = 0; i < numPlayers; i++) {
+                players.push({
+                    number: i + 1,
+                    x: positions[i].x,
+                    y: positions[i].y,
+                    targetX: null,
+                    targetY: null,
+                    moving: false,
+                    moveProgress: 0
+                });
+            }
+            
+            // Estado del balón
+            const ball = { 
+                holderIndex: 0, // Índice del jugador que tiene el balón
+                targetIndex: 1, // Índice al que va
+                passing: false,
+                progress: 0,
+                x: players[0].x,
+                y: players[0].y
+            };
+            
+            animations['canvas4'] = {
+                running: true,
+                players: players,
+                positions: positions,
+                ball: ball,
+                frameCount: 0,
+                passDelay: 0,
+                draw: function() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    this.frameCount++;
+                    
+                    // Título
+                    ctx.fillStyle = '#4CAF50';
+                    ctx.font = 'bold 18px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.shadowColor = 'rgba(0,0,0,0.5)';
+                    ctx.shadowBlur = 5;
+                    ctx.fillText('PASAR Y DESMARCARSE', canvas.width / 2, 30);
+                    ctx.shadowColor = 'transparent';
+                    
+                    ctx.fillStyle = '#ccc';
+                    ctx.font = '14px Arial';
+                    ctx.fillText('Pasa y corre a la posición del receptor (rotación continua)', canvas.width / 2, 55);
+                    
+                    // Círculo guía
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+                    ctx.lineWidth = 2;
+                    ctx.setLineDash([5, 5]);
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                    
+                    // Dibujar flechas del orden (sentido horario)
+                    ctx.strokeStyle = 'rgba(76, 175, 80, 0.3)';
+                    ctx.fillStyle = 'rgba(76, 175, 80, 0.3)';
+                    ctx.lineWidth = 2;
+                    for (let i = 0; i < numPlayers; i++) {
+                        const from = this.positions[i];
+                        const to = this.positions[(i + 1) % numPlayers];
+                        
+                        const angle = Math.atan2(to.y - from.y, to.x - from.x);
+                        const arrowStart = 0.25;
+                        const arrowEnd = 0.75;
+                        
+                        const startX = from.x + (to.x - from.x) * arrowStart;
+                        const startY = from.y + (to.y - from.y) * arrowStart;
+                        const endX = from.x + (to.x - from.x) * arrowEnd;
+                        const endY = from.y + (to.y - from.y) * arrowEnd;
+                        
+                        ctx.beginPath();
+                        ctx.moveTo(startX, startY);
+                        ctx.lineTo(endX, endY);
+                        ctx.stroke();
+                        
+                        const arrowSize = 8;
+                        ctx.beginPath();
+                        ctx.moveTo(endX, endY);
+                        ctx.lineTo(
+                            endX - arrowSize * Math.cos(angle - Math.PI / 6),
+                            endY - arrowSize * Math.sin(angle - Math.PI / 6)
+                        );
+                        ctx.lineTo(
+                            endX - arrowSize * Math.cos(angle + Math.PI / 6),
+                            endY - arrowSize * Math.sin(angle + Math.PI / 6)
+                        );
+                        ctx.closePath();
+                        ctx.fill();
+                    }
+                    
+                    // Actualizar movimiento de jugadores
+                    this.players.forEach((player) => {
+                        if (player.moving) {
+                            player.moveProgress += 0.04;
+                            
+                            const startX = player.x;
+                            const startY = player.y;
+                            
+                            player.x = startX + (player.targetX - startX) * player.moveProgress;
+                            player.y = startY + (player.targetY - startY) * player.moveProgress;
+                            
+                            if (player.moveProgress >= 1) {
+                                player.x = player.targetX;
+                                player.y = player.targetY;
+                                player.moving = false;
+                            }
+                        }
+                    });
+                    
+                    // Dibujar jugadores
+                    this.players.forEach((player, index) => {
+                        let color = '#3498db';
+                        if (player.moving) {
+                            color = '#9b59b6'; // Jugador en movimiento
+                        } else if (index === this.ball.holderIndex) {
+                            color = '#2ecc71'; // Jugador con balón
+                        }
+                        
+                        drawPlayer(ctx, player.x, player.y, color, player.number, 16);
+                    });
+                    
+                    // Control del pase
+                    if (this.passDelay > 0) {
+                        this.passDelay--;
+                    }
+                    
+                    if (!this.ball.passing && this.passDelay === 0 && Math.random() < 0.03) {
+                        // Iniciar pase
+                        this.ball.passing = true;
+                        this.ball.progress = 0;
+                        this.ball.targetIndex = (this.ball.holderIndex + 1) % numPlayers;
+                        
+                        // El jugador que pasa empieza a moverse INMEDIATAMENTE
+                        const passer = this.players[this.ball.holderIndex];
+                        const receiver = this.players[this.ball.targetIndex];
+                        
+                        passer.moving = true;
+                        passer.targetX = receiver.x;
+                        passer.targetY = receiver.y;
+                        passer.moveProgress = 0;
+                    }
+                    
+                    if (this.ball.passing) {
+                        this.ball.progress += 0.03;
+                        
+                        // Posiciones actuales de los jugadores (pueden estar moviéndose)
+                        const from = this.players[this.ball.holderIndex];
+                        const to = this.players[this.ball.targetIndex];
+                        
+                        // Interpolar posición del balón
+                        const startX = from.moving ? from.targetX : from.x;
+                        const startY = from.moving ? from.targetY : from.y;
+                        
+                        this.ball.x = startX + (to.x - startX) * this.ball.progress;
+                        this.ball.y = startY + (to.y - startY) * this.ball.progress;
+                        
+                        // Línea de pase
+                        ctx.save();
+                        ctx.strokeStyle = 'rgba(241, 196, 15, 0.5)';
+                        ctx.lineWidth = 2;
+                        ctx.setLineDash([8, 4]);
+                        ctx.beginPath();
+                        ctx.moveTo(startX, startY);
+                        ctx.lineTo(this.ball.x, this.ball.y);
+                        ctx.stroke();
+                        ctx.setLineDash([]);
+                        ctx.restore();
+                        
+                        if (this.ball.progress >= 1) {
+                            this.ball.passing = false;
+                            this.ball.holderIndex = this.ball.targetIndex;
+                            this.passDelay = 20; // Pequeña pausa antes del siguiente pase
+                        }
+                    } else {
+                        // El balón sigue al jugador que lo tiene
+                        this.ball.x = this.players[this.ball.holderIndex].x;
+                        this.ball.y = this.players[this.ball.holderIndex].y;
+                    }
+                    
+                    // Dibujar balón
+                    ctx.shadowColor = 'rgba(0,0,0,0.6)';
+                    ctx.shadowBlur = 8;
+                    ctx.shadowOffsetX = 3;
+                    ctx.shadowOffsetY = 3;
+                    
+                    ctx.fillStyle = '#f1c40f';
+                    ctx.beginPath();
+                    ctx.arc(this.ball.x, this.ball.y, 8, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    ctx.shadowColor = 'transparent';
+                    ctx.strokeStyle = '#000';
+                    ctx.lineWidth = 1.5;
+                    ctx.stroke();
+                },
+                reset: function() {
+                    // Restaurar posiciones originales
+                    for (let i = 0; i < numPlayers; i++) {
+                        this.players[i].number = i + 1;
+                        this.players[i].x = this.positions[i].x;
+                        this.players[i].y = this.positions[i].y;
+                        this.players[i].targetX = null;
+                        this.players[i].targetY = null;
+                        this.players[i].moving = false;
+                        this.players[i].moveProgress = 0;
+                    }
+                    
+                    this.ball.holderIndex = 0;
+                    this.ball.targetIndex = 1;
+                    this.ball.passing = false;
+                    this.ball.progress = 0;
+                    this.ball.x = this.players[0].x;
+                    this.ball.y = this.players[0].y;
+                    
+                    this.passDelay = 0;
+                    this.frameCount = 0;
+                }
+            };
+        }
+
+        // EJERCICIO 5: Control y pase en línea
+        function initCanvas5() {
+            const canvas = document.getElementById('canvas5');
+            const ctx = canvas.getContext('2d');
+            
+            const leftLine = [];
+            const rightLine = [];
+            const spacing = 50;
+            const startY = 100;
+            
+            for (let i = 0; i < 5; i++) {
+                leftLine.push({ x: 200, y: startY + i * spacing, number: i + 1 });
+                rightLine.push({ x: 500, y: startY + i * spacing, number: i + 1 });
+            }
+            
+            // Inicializar con 1 pelota
+            const balls = [
+                { 
+                    x: leftLine[0].x, 
+                    y: leftLine[0].y,
+                    currentSide: 'left',
+                    currentIndex: 0,
+                    passing: false,
+                    progress: 0
+                }
+            ];
+            
+            animations['canvas5'] = {
+                running: true,
+                leftLine: leftLine,
+                rightLine: rightLine,
+                balls: balls,
+                ballCount: 1,
+                draw: function() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Título
+                    ctx.fillStyle = '#4CAF50';
+                    ctx.font = 'bold 18px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.shadowColor = 'rgba(0,0,0,0.5)';
+                    ctx.shadowBlur = 5;
+                    ctx.fillText('CONTROL Y PASE EN LÍNEA', canvas.width / 2, 30);
+                    ctx.shadowColor = 'transparent';
+                    
+                    ctx.fillStyle = '#ccc';
+                    ctx.font = '14px Arial';
+                    ctx.fillText('Orden secuencial: 1izq→1der→2izq→2der→3izq→3der...', canvas.width / 2, 55);
+                    
+                    // Líneas guía
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+                    ctx.lineWidth = 2;
+                    ctx.setLineDash([5, 5]);
+                    ctx.beginPath();
+                    ctx.moveTo(200, startY);
+                    ctx.lineTo(200, startY + 4 * spacing);
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.moveTo(500, startY);
+                    ctx.lineTo(500, startY + 4 * spacing);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                    
+                    // Dibujar líneas de orden de pase
+                    ctx.strokeStyle = 'rgba(76, 175, 80, 0.2)';
+                    ctx.lineWidth = 1;
+                    ctx.setLineDash([3, 3]);
+                    
+                    // Líneas del orden: 1izq→1der, 1der→2izq, 2izq→2der, etc.
+                    for (let i = 0; i < 5; i++) {
+                        // De izquierda a derecha (mismo número)
+                        ctx.beginPath();
+                        ctx.moveTo(this.leftLine[i].x + 15, this.leftLine[i].y);
+                        ctx.lineTo(this.rightLine[i].x - 15, this.rightLine[i].y);
+                        ctx.stroke();
+                        
+                        // De derecha a siguiente izquierda (siguiente número)
+                        if (i < 4) {
+                            ctx.beginPath();
+                            ctx.moveTo(this.rightLine[i].x - 15, this.rightLine[i].y);
+                            ctx.lineTo(this.leftLine[i + 1].x + 15, this.leftLine[i + 1].y);
+                            ctx.stroke();
+                        }
+                    }
+                    ctx.setLineDash([]);
+                    
+                    // Dibujar jugadores fila izquierda
+                    this.leftLine.forEach((player, index) => {
+                        let isActive = false;
+                        this.balls.forEach(ball => {
+                            if (ball.currentSide === 'left' && ball.currentIndex === index) {
+                                isActive = true;
+                            }
+                        });
+                        const color = isActive ? '#2ecc71' : '#3498db';
+                        drawPlayer(ctx, player.x, player.y, color, player.number, 14);
+                    });
+                    
+                    // Dibujar jugadores fila derecha
+                    this.rightLine.forEach((player, index) => {
+                        let isActive = false;
+                        this.balls.forEach(ball => {
+                            if (ball.currentSide === 'right' && ball.currentIndex === index) {
+                                isActive = true;
+                            }
+                        });
+                        const color = isActive ? '#2ecc71' : '#e74c3c';
+                        drawPlayer(ctx, player.x, player.y, color, player.number, 14);
+                    });
+                    
+                    // Procesar cada pelota
+                    this.balls.forEach((ball, ballIndex) => {
+                        // Animar pase - orden secuencial
+                        if (!ball.passing && Math.random() < 0.015) {
+                            ball.passing = true;
+                            ball.progress = 0;
+                        }
+                        
+                        if (ball.passing) {
+                            ball.progress += 0.02;
+                            
+                            let fromLine, toLine, fromIndex, toIndex;
+                            
+                            if (ball.currentSide === 'left') {
+                                // De izquierda a derecha (mismo índice)
+                                fromLine = this.leftLine;
+                                toLine = this.rightLine;
+                                fromIndex = ball.currentIndex;
+                                toIndex = ball.currentIndex;
+                            } else {
+                                // De derecha a izquierda (siguiente índice)
+                                fromLine = this.rightLine;
+                                toLine = this.leftLine;
+                                fromIndex = ball.currentIndex;
+                                toIndex = (ball.currentIndex + 1) % 5;
+                            }
+                            
+                            const from = fromLine[fromIndex];
+                            const to = toLine[toIndex];
+                            
+                            ball.x = from.x + (to.x - from.x) * ball.progress;
+                            ball.y = from.y + (to.y - from.y) * ball.progress;
+                            
+                            drawPassLine(ctx, from.x, from.y, to.x, to.y, ball.progress);
+                            
+                            if (ball.progress >= 1) {
+                                ball.passing = false;
+                                ball.currentSide = ball.currentSide === 'left' ? 'right' : 'left';
+                                
+                                if (ball.currentSide === 'left') {
+                                    // Acabamos de pasar de derecha a izquierda, avanzamos índice
+                                    ball.currentIndex = (ball.currentIndex + 1) % 5;
+                                }
+                            }
+                        } else {
+                            const currentLine = ball.currentSide === 'left' ? this.leftLine : this.rightLine;
+                            ball.x = currentLine[ball.currentIndex].x;
+                            ball.y = currentLine[ball.currentIndex].y;
+                        }
+                        
+                        // Dibujar balón
+                        drawBall(ctx, ball.x, ball.y);
+                    });
+                },
+                reset: function() {
+                    this.balls.forEach((ball, i) => {
+                        ball.x = this.leftLine[i % 5].x;
+                        ball.y = this.leftLine[i % 5].y;
+                        ball.currentSide = 'left';
+                        ball.currentIndex = i % 5;
+                        ball.passing = false;
+                        ball.progress = 0;
+                    });
+                },
+                changeBallCount: function() {
+                    // Ciclar entre 1, 2, 3, 4, 5 pelotas
+                    this.ballCount = (this.ballCount % 5) + 1;
+                    
+                    // Ajustar el número de pelotas
+                    this.balls = [];
+                    for (let i = 0; i < this.ballCount; i++) {
+                        const startIndex = Math.floor(i * 5 / this.ballCount);
+                        this.balls.push({
+                            x: this.leftLine[startIndex].x,
+                            y: this.leftLine[startIndex].y,
+                            currentSide: 'left',
+                            currentIndex: startIndex,
+                            passing: false,
+                            progress: 0
+                        });
+                    }
+                    
+                    // Actualizar el display
+                    document.getElementById('ballCountDisplay5').textContent = `Número de pelotas: ${this.ballCount}`;
+                }
+            };
+        }
+
+        // EJERCICIO 6: Partidillo
+        function initCanvas6() {
+            const canvas = document.getElementById('canvas6');
+            const ctx = canvas.getContext('2d');
+            
+            const blueTeam = [];
+            const redTeam = [];
+            
+            // Posiciones iniciales equipo azul (mitad izquierda)
+            const bluePositions = [
+                { x: 120, y: 100 }, { x: 180, y: 100 },
+                { x: 120, y: 180 }, { x: 180, y: 180 },
+                { x: 120, y: 260 }, { x: 180, y: 260 },
+                { x: 140, y: 330 }, { x: 200, y: 330 },
+                { x: 240, y: 150 }, { x: 240, y: 250 },
+                { x: 280, y: 200 }, { x: 300, y: 300 }
+            ];
+            
+            bluePositions.forEach((pos, i) => {
+                blueTeam.push({
+                    x: pos.x,
+                    y: pos.y,
+                    vx: (Math.random() - 0.5) * 0.8,
+                    vy: (Math.random() - 0.5) * 0.8
+                });
+            });
+            
+            // Posiciones iniciales equipo rojo (mitad derecha)
+            const redPositions = [
+                { x: 520, y: 100 }, { x: 580, y: 100 },
+                { x: 520, y: 180 }, { x: 580, y: 180 },
+                { x: 520, y: 260 }, { x: 580, y: 260 },
+                { x: 500, y: 330 }, { x: 560, y: 330 },
+                { x: 460, y: 150 }, { x: 460, y: 250 },
+                { x: 420, y: 200 }, { x: 400, y: 300 }
+            ];
+            
+            redPositions.forEach((pos, i) => {
+                redTeam.push({
+                    x: pos.x,
+                    y: pos.y,
+                    vx: (Math.random() - 0.5) * 0.8,
+                    vy: (Math.random() - 0.5) * 0.8
+                });
+            });
+            
+            const comodin = { 
+                x: 350, 
+                y: 200, 
+                vx: 0.5, 
+                vy: 0.5 
+            };
+            
+            const ball = { 
+                x: 350, 
+                y: 200, 
+                owner: 'blue', 
+                ownerIndex: 0 
+            };
+            
+            animations['canvas6'] = {
+                running: true,
+                blueTeam: blueTeam,
+                redTeam: redTeam,
+                comodin: comodin,
+                ball: ball,
+                consecutivePasses: 0,
+                draw: function() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Campo completo con líneas
+                    ctx.strokeStyle = '#fff';
+                    ctx.lineWidth = 3;
+                    ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
+                    
+                    // Línea central
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.moveTo(canvas.width / 2, 20);
+                    ctx.lineTo(canvas.width / 2, canvas.height - 20);
+                    ctx.stroke();
+                    
+                    // Círculo central
+                    ctx.beginPath();
+                    ctx.arc(canvas.width / 2, canvas.height / 2, 40, 0, Math.PI * 2);
+                    ctx.stroke();
+                    
+                    // Áreas
+                    ctx.lineWidth = 2;
+                    ctx.strokeRect(20, 130, 70, 140);
+                    ctx.strokeRect(canvas.width - 90, 130, 70, 140);
+                    
+                    // Porterías
+                    ctx.strokeStyle = '#f1c40f';
+                    ctx.lineWidth = 6;
+                    ctx.beginPath();
+                    ctx.moveTo(20, 160);
+                    ctx.lineTo(20, 240);
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.moveTo(canvas.width - 20, 160);
+                    ctx.lineTo(canvas.width - 20, 240);
+                    ctx.stroke();
+                    
+                    // Información del juego
+                    ctx.fillStyle = '#4CAF50';
+                    ctx.font = 'bold 16px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.shadowColor = 'rgba(0,0,0,0.5)';
+                    ctx.shadowBlur = 5;
+                    ctx.fillText('PARTIDILLO - 12 vs 12 + Comodín', canvas.width / 2, 45);
+                    ctx.shadowColor = 'transparent';
+                    
+                    // Contador de pases
+                    ctx.font = '14px Arial';
+                    ctx.fillStyle = '#fff';
+                    ctx.fillText(`Pases consecutivos: ${this.consecutivePasses}`, canvas.width / 2, 65);
+                    
+                    // Mover y dibujar equipo azul
+                    this.blueTeam.forEach((player, i) => {
+                        player.x += player.vx;
+                        player.y += player.vy;
+                        
+                        // Mantener preferentemente en su mitad
+                        if (player.x < 40) player.vx = Math.abs(player.vx);
+                        if (player.x > canvas.width / 2 + 50) player.vx = -Math.abs(player.vx) * 0.8;
+                        if (player.y < 40) player.vy = Math.abs(player.vy);
+                        if (player.y > canvas.height - 40) player.vy = -Math.abs(player.vy);
+                        
+                        drawPlayer(ctx, player.x, player.y, '#3498db', null, 10);
+                    });
+                    
+                    // Mover y dibujar equipo rojo
+                    this.redTeam.forEach((player, i) => {
+                        player.x += player.vx;
+                        player.y += player.vy;
+                        
+                        // Mantener preferentemente en su mitad
+                        if (player.x > canvas.width - 40) player.vx = -Math.abs(player.vx);
+                        if (player.x < canvas.width / 2 - 50) player.vx = Math.abs(player.vx) * 0.8;
+                        if (player.y < 40) player.vy = Math.abs(player.vy);
+                        if (player.y > canvas.height - 40) player.vy = -Math.abs(player.vy);
+                        
+                        drawPlayer(ctx, player.x, player.y, '#e74c3c', null, 10);
+                    });
+                    
+                    // Mover comodín
+                    this.comodin.x += this.comodin.vx;
+                    this.comodin.y += this.comodin.vy;
+                    
+                    if (this.comodin.x < 40 || this.comodin.x > canvas.width - 40) this.comodin.vx *= -1;
+                    if (this.comodin.y < 40 || this.comodin.y > canvas.height - 40) this.comodin.vy *= -1;
+                    
+                    // Dibujar comodín con estrella
+                    ctx.shadowColor = 'rgba(241, 196, 15, 0.6)';
+                    ctx.shadowBlur = 15;
+                    ctx.fillStyle = '#f1c40f';
+                    ctx.beginPath();
+                    ctx.arc(this.comodin.x, this.comodin.y, 13, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.shadowColor = 'transparent';
+                    
+                    ctx.strokeStyle = '#000';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                    
+                    ctx.fillStyle = '#000';
+                    ctx.font = 'bold 16px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('★', this.comodin.x, this.comodin.y);
+                    
+                    // Actualizar posición del balón
+                    const owner = this.ball.owner === 'blue' ? 
+                        this.blueTeam[this.ball.ownerIndex % this.blueTeam.length] : 
+                        this.redTeam[this.ball.ownerIndex % this.redTeam.length];
+                    this.ball.x = owner.x;
+                    this.ball.y = owner.y;
+                    
+                    // Dibujar balón
+                    drawBall(ctx, this.ball.x, this.ball.y, 6);
+                    
+                    // Cambiar posesión ocasionalmente
+                    if (Math.random() < 0.01) {
+                        const newOwner = this.ball.owner === 'blue' ? 'red' : 'blue';
+                        if (newOwner === this.ball.owner) {
+                            this.consecutivePasses++;
+                        } else {
+                            this.consecutivePasses = 0;
+                        }
+                        this.ball.owner = newOwner;
+                        this.ball.ownerIndex = Math.floor(Math.random() * 10);
+                    }
+                    
+                    // Reglas del juego
+                    ctx.fillStyle = 'rgba(0,0,0,0.6)';
+                    ctx.fillRect(20, canvas.height - 45, canvas.width - 40, 30);
+                    ctx.fillStyle = '#fff';
+                    ctx.font = '12px Arial';
+                    ctx.textAlign = 'left';
+                    ctx.fillText('• Máximo 2 toques por jugador', 30, canvas.height - 25);
+                    ctx.textAlign = 'center';
+                    ctx.fillText('• Gol válido tras 3 pases consecutivos', canvas.width / 2, canvas.height - 25);
+                    ctx.textAlign = 'right';
+                    ctx.fillText('• Juego colectivo prioritario', canvas.width - 30, canvas.height - 25);
+                },
+                reset: function() {
+                    // Restaurar posiciones iniciales
+                    bluePositions.forEach((pos, i) => {
+                        this.blueTeam[i].x = pos.x;
+                        this.blueTeam[i].y = pos.y;
+                        this.blueTeam[i].vx = (Math.random() - 0.5) * 0.8;
+                        this.blueTeam[i].vy = (Math.random() - 0.5) * 0.8;
+                    });
+                    
+                    redPositions.forEach((pos, i) => {
+                        this.redTeam[i].x = pos.x;
+                        this.redTeam[i].y = pos.y;
+                        this.redTeam[i].vx = (Math.random() - 0.5) * 0.8;
+                        this.redTeam[i].vy = (Math.random() - 0.5) * 0.8;
+                    });
+                    
+                    this.comodin.x = 350;
+                    this.comodin.y = 200;
+                    this.comodin.vx = 0.5;
+                    this.comodin.vy = 0.5;
+                    
+                    this.ball.x = 350;
+                    this.ball.y = 200;
+                    this.ball.owner = 'blue';
+                    this.ball.ownerIndex = 0;
+                    this.consecutivePasses = 0;
+                }
+            };
+        }
+
+        function toggleAnimation(canvasId) {
+            if (animations[canvasId]) {
+                animations[canvasId].running = !animations[canvasId].running;
+            }
+        }
+
+        function resetAnimation(canvasId) {
+            if (animations[canvasId] && animations[canvasId].reset) {
+                animations[canvasId].reset();
+            }
+        }
+
+        function changeBallCount(canvasId) {
+            if (animations[canvasId] && animations[canvasId].changeBallCount) {
+                animations[canvasId].changeBallCount();
+            }
+        }
+
+        function animate() {
+            Object.keys(animations).forEach(key => {
+                if (animations[key].running) {
+                    animations[key].draw();
+                }
+            });
+            requestAnimationFrame(animate);
+        }
+
+        // Inicializar todas las animaciones
+        window.onload = function() {
+            initCanvas1();
+            initCanvas2();
+            initCanvas3();
+            initCanvas4();
+            initCanvas5();
+            initCanvas6();
+            animate();
+        };
+    </script>
+</body>
+</html>
